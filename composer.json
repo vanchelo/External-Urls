@@ -1,0 +1,24 @@
+{
+  "name": "vanchelo/external-urls",
+  "type": "library",
+  "description": "Get all external urls from page",
+  "keywords": ["seo","external urls","links"],
+  "homepage": "https://github.com/vanchelo/External-Urls",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Brezhnev Ivan",
+      "email": "brezhnev.ivan@yahoo.com",
+      "homepage": "http://vanchelo.pp.ua",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Vanchelo\\ExternalUrls\\": "src/"
+    }
+  }
+}
