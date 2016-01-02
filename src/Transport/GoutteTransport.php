@@ -1,12 +1,20 @@
-<?php namespace Vanchelo\ExternalUrls\Transport;
+<?php
+
+namespace Vanchelo\ExternalUrls\Transport;
 
 use Goutte\Client;
 
 class GoutteTransport implements TransportInterface
 {
+    /**
+     * @var Client
+     */
     protected $client;
 
-    function __construct()
+    /**
+     * GoutteTransport constructor.
+     */
+    public function __construct()
     {
         $this->client = new Client();
     }

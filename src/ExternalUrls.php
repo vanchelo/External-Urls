@@ -1,46 +1,44 @@
-<?php namespace Vanchelo\ExternalUrls;
+<?php
 
-use Vanchelo\ExternalUrls\Collection;
+namespace Vanchelo\ExternalUrls;
+
 use Vanchelo\ExternalUrls\Transport\CurlTransport;
 use Vanchelo\ExternalUrls\Transport\TransportInterface;
 
 class ExternalUrls
 {
     /**
-     * Коллекция найденных внешних ссылок
+     * External links
      *
      * @var Collection
      */
     public $links;
-
     /**
-     * Рабочий URL
+     * Working URL
      *
-     * @var
+     * @var string
      */
     protected $url;
-
     /**
-     * Домен
+     * Domain
      *
-     * @var
+     * @var string
      */
     protected $domain;
-
     /**
-     * Транспорт
+     * Transport
      *
      * @var TransportInterface
      */
     protected $transport;
 
     /**
-     * Конструктор
+     * ExternalUrls constructor.
      *
      * @param TransportInterface $transport
-     * @param string|null $url
+     * @param string|null        $url
      */
-    function __construct(TransportInterface $transport = null, $url = null)
+    public function __construct(TransportInterface $transport = null, $url = null)
     {
         if (!$transport) {
             $transport = new CurlTransport;
@@ -48,11 +46,13 @@ class ExternalUrls
 
         $this->setTransport($transport);
 
-        if ($url) $this->prepare($url);
+        if ($url) {
+            $this->prepare($url);
+        }
     }
 
     /**
-     * Установка транспорта
+     * Set transport
      *
      * @param TransportInterface $transport
      */
@@ -62,7 +62,7 @@ class ExternalUrls
     }
 
     /**
-     * Подготовка URL
+     * Prepare URL
      *
      * @param string $url
      */
@@ -80,13 +80,17 @@ class ExternalUrls
      */
     public function go($url = null)
     {
-        if ($url) $this->prepare($url);
+        if ($url) {
+            $this->prepare($url);
+        }
 
         $content = $this->transport->get($this->url);
 
         $links = [];
         foreach ($this->getAllLinks($content) as $link) {
-            if ($this->externalLink($link)) $links[] = $link;
+            if ($this->externalLink($link)) {
+                $links[] = $link;
+            }
         }
 
         $this->links = $this->buildCollection($links);
@@ -94,13 +98,18 @@ class ExternalUrls
         return $this->links;
     }
 
+    /**
+     * @param array $items
+     *
+     * @return Collection
+     */
     protected function buildCollection($items)
     {
         return Collection::make($items);
     }
 
     /**
-     * @param $content
+     * @param string $content
      *
      * @return array
      */
@@ -114,7 +123,7 @@ class ExternalUrls
     }
 
     /**
-     * @param $link
+     * @param string $link
      *
      * @return bool
      */

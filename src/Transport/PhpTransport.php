@@ -1,4 +1,6 @@
-<?php namespace Vanchelo\ExternalUrls\Transport;
+<?php
+
+namespace Vanchelo\ExternalUrls\Transport;
 
 class PhpTransport implements TransportInterface
 {

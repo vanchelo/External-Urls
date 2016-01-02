@@ -1,12 +1,20 @@
-<?php namespace Vanchelo\ExternalUrls\Transport;
+<?php
+
+namespace Vanchelo\ExternalUrls\Transport;
 
 use GuzzleHttp\Client;
 
 class GuzzleTransport implements TransportInterface
 {
+    /**
+     * @var Client
+     */
     protected $client;
 
-    function __construct()
+    /**
+     * GuzzleTransport constructor.
+     */
+    public function __construct()
     {
         $this->client = new Client();
     }

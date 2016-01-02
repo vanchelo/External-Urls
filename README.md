@@ -2,12 +2,16 @@
 
 Библиотека для получения всех внешних ссылок с определенной страницы сайта
 
+## Установка
+
+`composer require vanchelo/external-urls`
+
 ## Использование
 
 ```php
 <?php
 // composer autoloader
-require_once '../vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 use Vanchelo\ExternalLinks\ExternalUrls;
 //use Vanchelo\ExternalUrls\Transport\PhpTransport;
@@ -39,7 +43,7 @@ $links->toJson();
 print_r($links->unique()->toArray());
 ```
 
-Библиотека очень проста в использовании даже для не подготовленного PHP разработчика. 
+Библиотека очень проста в использовании даже для не подготовленного PHP разработчика.
 
 Доступны четыре реализации транспорта для получение содержимого страниц сайта:
 

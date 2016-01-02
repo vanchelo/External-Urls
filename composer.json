@@ -2,7 +2,11 @@
   "name": "vanchelo/external-urls",
   "type": "library",
   "description": "Get all external urls from page",
-  "keywords": ["seo","external urls","links"],
+  "keywords": [
+    "seo",
+    "external urls",
+    "links"
+  ],
   "homepage": "https://github.com/vanchelo/External-Urls",
   "license": "MIT",
   "authors": [

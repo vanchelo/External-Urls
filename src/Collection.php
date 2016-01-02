@@ -1,4 +1,6 @@
-<?php namespace Vanchelo\ExternalUrls;
+<?php
+
+namespace Vanchelo\ExternalUrls;
 
 use ArrayAccess;
 use ArrayIterator;
@@ -21,7 +23,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      *
      * @param array $items
      */
-    function __construct(array $items = [])
+    public function __construct(array $items = [])
     {
         $this->items = $items;
     }
@@ -29,7 +31,7 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
     /**
      * Create a new collection instance if the value isn't one already
      *
-     * @param  mixed $items
+     * @param mixed $items
      *
      * @return static
      */
@@ -84,26 +86,48 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
         return $this->items;
     }
 
+    /**
+     * @param int $options
+     *
+     * @return string
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
     }
 
+    /**
+     * @return array
+     */
     function jsonSerialize()
     {
         return $this->toArray();
     }
 
+    /**
+     * @param mixed $key
+     *
+     * @return bool
+     */
     public function offsetExists($key)
     {
         return array_key_exists($key, $this->items);
     }
 
+    /**
+     * @param mixed $key
+     *
+     * @return mixed
+     */
     public function offsetGet($key)
     {
         return $this->items[$key];
     }
 
+    /**
+     * @param mixed $key
+     * @param mixed $value
+     */
     public function offsetSet($key, $value)
     {
         if (is_null($key)) {
@@ -113,11 +137,17 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
         }
     }
 
+    /**
+     * @param mixed $key
+     */
     public function offsetUnset($key)
     {
         unset($this->items[$key]);
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return count($this->items);
