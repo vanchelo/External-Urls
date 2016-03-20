@@ -5,13 +5,8 @@ namespace Vanchelo\ExternalUrls\Transport;
 class CurlTransport implements TransportInterface
 {
     /**
-     * Send Request
-     *
-     * @param string $url
-     *
+     * {@inheritdoc}
      * @throws \InvalidArgumentException if $url argument is not of type 'string'
-     *
-     * @return mixed
      */
     public function get($url)
     {

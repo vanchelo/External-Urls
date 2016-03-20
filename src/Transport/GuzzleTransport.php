@@ -20,9 +20,7 @@ class GuzzleTransport implements TransportInterface
     }
 
     /**
-     * @param string $url
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function get($url)
     {

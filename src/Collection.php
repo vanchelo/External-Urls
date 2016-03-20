@@ -37,9 +37,13 @@ class Collection implements ArrayAccess, Countable, IteratorAggregate, JsonSeria
      */
     public static function make($items)
     {
-        if (is_null($items)) return new static;
+        if (is_null($items)) {
+            return new static;
+        }
 
-        if ($items instanceof Collection) return $items;
+        if ($items instanceof Collection) {
+            return $items;
+        }
 
         return new static(is_array($items) ? $items : [$items]);
     }

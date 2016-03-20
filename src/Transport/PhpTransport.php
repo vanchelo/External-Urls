@@ -5,9 +5,7 @@ namespace Vanchelo\ExternalUrls\Transport;
 class PhpTransport implements TransportInterface
 {
     /**
-     * @param string $url
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function get($url)
     {

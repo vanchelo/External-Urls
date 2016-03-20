@@ -20,7 +20,7 @@ class ExternalUrls
      */
     protected $url;
     /**
-     * Domain
+     * Current Domain
      *
      * @var string
      */
@@ -68,12 +68,18 @@ class ExternalUrls
      */
     protected function prepare($url)
     {
+        if (strpos($url, 'http://') !== 0 && strpos($url, 'https://') !== 0) {
+            $url = 'http://' . ltrim($url, '/');
+        }
+
         $this->links = [];
         $this->url = $url;
         $this->setDomain($url);
     }
 
     /**
+     * Go Go Go...
+     *
      * @param string|null $url
      *
      * @return Collection
@@ -82,6 +88,10 @@ class ExternalUrls
     {
         if ($url) {
             $this->prepare($url);
+        }
+
+        if (!$url && !$this->url) {
+            throw new \InvalidArgumentException('Please set url before go.');
         }
 
         $content = $this->transport->get($this->url);
@@ -99,6 +109,8 @@ class ExternalUrls
     }
 
     /**
+     * Build collection of links
+     *
      * @param array $items
      *
      * @return Collection
@@ -109,6 +121,8 @@ class ExternalUrls
     }
 
     /**
+     * Get all external links from string
+     *
      * @param string $content
      *
      * @return array
@@ -117,22 +131,34 @@ class ExternalUrls
     {
         $matches = [];
 
-        preg_match_all('/href=\"(https?:\/\/.+)"/U', $content, $matches);
+        preg_match_all('/href=\"((https?:)?\/\/.+)"/U', $content, $matches);
 
-        return isset($matches[1]) ? $matches[1] : [];
+        if (!isset($matches[1])) {
+            return [];
+        }
+
+        $links = array_map(function ($link) {
+            return trim($link, '/');
+        }, $matches[1]);
+
+        return $links;
     }
 
     /**
+     * Determine if link is external
+     *
      * @param string $link
      *
      * @return bool
      */
     protected function externalLink($link)
     {
-        return !preg_match('/^https?:\/\/' . $this->domain . '/', $link);
+        return !preg_match('/^(https?:)?(\/\/)?(www\.)?' . $this->domain . '/Ui', $link);
     }
 
     /**
+     * Set domain
+     *
      * @param string $url
      */
     protected function setDomain($url)
